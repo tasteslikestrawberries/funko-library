@@ -37,24 +37,40 @@ const Main: React.FC = () => {
 
       {loading && <div>Loading</div>}
 
-      {!loading && <div>{data.map( (entry) => console.log(entry) )}</div>}
-
-      {/*<Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Series Name</th>
-            <th>Image</th>
-          </tr>
-        </thead>
-        <tbody>
-        <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        </tr>
-        </tbody>
-        </Table>*/}
+      {!loading && (
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>#</th>
+              <th>Title</th>
+              <th>Series</th>
+              <th className="funkoImg">Image</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((entry: any, idx: number) => (
+              <tr key={idx}>
+                <td>
+                  <b>{idx + 1}</b>
+                </td>
+                <td>
+                  <b>{entry.id}</b>
+                </td>
+                <td>{entry.title}</td>
+                <td>{entry.series}</td>
+                <td className="funkoImg">
+                  <img
+                    style={{ width: "150px" }}
+                    src={entry.image}
+                    alt="funkoImg"
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      )}
     </>
   );
 };

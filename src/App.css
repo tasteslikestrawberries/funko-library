@@ -26,3 +26,13 @@ h2 {
 table {
   margin-top: 2rem;
 }
+
+td {
+  text-align: center;
+}
+
+@media (max-width: 50rem) {
+  .funkoImg {
+    display: none;
+  }
+}
