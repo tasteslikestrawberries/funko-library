@@ -1,9 +1,8 @@
 import React from "react";
-import { useEffect } from "react";
+import useFetchData from "./hooks/useFetchData";
 import styled from "styled-components";
 import logo from "../../src/assets/logo.png";
 import { Table } from "react-bootstrap";
-import axios from "axios";
 
 const StyledHeader = styled.div`
   display: flex;
@@ -13,20 +12,7 @@ const StyledHeader = styled.div`
 `;
 
 const Main: React.FC = () => {
-  useEffect(() => {
-    const getFunkoData = async () => {
-      try {
-        const data = await axios.get(
-          "https://raw.githubusercontent.com/kennymkchan/funko-pop-data/master/funko_pop.json"
-        );
-        console.log(data.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    getFunkoData();
-  }, []);
+  const { data, loading } = useFetchData();
 
   return (
     <>
@@ -49,22 +35,26 @@ const Main: React.FC = () => {
         <h2>Library</h2>
       </StyledHeader>
 
-      <Table striped bordered hover>
+      {loading && <div>Loading</div>}
+
+      {!loading && <div>{data.map( (entry) => console.log(entry) )}</div>}
+
+      {/*<Table striped bordered hover>
         <thead>
           <tr>
-            <th>#No.</th>
             <th>Title</th>
+            <th>Series Name</th>
             <th>Image</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-          </tr>
+        <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
         </tbody>
-      </Table>
+        </Table>*/}
     </>
   );
 };
