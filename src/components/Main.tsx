@@ -1,8 +1,16 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import useFetchData from "./hooks/useFetchData";
 import styled from "styled-components";
 import logo from "../../src/assets/logo.png";
 import { Table } from "react-bootstrap";
+
+interface IFunko {
+  id: string;
+  title: string;
+  series: string;
+  image: string;
+}
 
 const StyledHeader = styled.div`
   display: flex;
@@ -12,7 +20,21 @@ const StyledHeader = styled.div`
 `;
 
 const Main: React.FC = () => {
-  const { data, loading } = useFetchData();
+  const { data, loading }: { data: IFunko[]; loading: boolean } = useFetchData();
+  const [searchData, setSearchData] = useState<string>("");
+  const [searchResults, setSearchResults] = useState<IFunko[]>([]);
+
+  useEffect(() => {
+    const results = data.filter((entry) => {
+      if (entry.id.toLowerCase().includes(searchData)) return true;
+      if (entry.title.toLowerCase().includes(searchData)) return true;
+      if (entry.series.toLowerCase().includes(searchData)) return true;
+
+      return false;
+    });
+
+    setSearchResults(results);
+  }, [data, searchData]);
 
   return (
     <>
@@ -23,7 +45,10 @@ const Main: React.FC = () => {
             className="form-control"
             placeholder="Search Funkos"
             aria-label="search-button"
+            value={searchData}
+            onInput={(e) => setSearchData(e.currentTarget.value)}
           />
+
           <button className="btn btn-primary" type="button" id="button-addon1">
             Search
           </button>
@@ -49,16 +74,16 @@ const Main: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((entry: any, idx: number) => (
+            {searchResults.map((entry: any, idx: number) => (
               <tr key={idx}>
-                <td>
+                <td className="align-middle">
                   <b>{idx + 1}</b>
                 </td>
-                <td>
+                <td className="align-middle">
                   <b>{entry.id}</b>
                 </td>
-                <td>{entry.title}</td>
-                <td>{entry.series}</td>
+                <td className="align-middle">{entry.title}</td>
+                <td className="align-middle">{entry.series}</td>
                 <td className="funkoImg">
                   <img
                     style={{ width: "150px" }}
