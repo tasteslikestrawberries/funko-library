@@ -49,7 +49,7 @@ const App = () => {
       <Router>
         <StyledNav>
           <StyledLinks>
-            <Link to="/">Library</Link>
+            <Link to="/main">Library</Link>
             <Link to="/about">About</Link>
           </StyledLinks>
           <button
@@ -72,8 +72,9 @@ const App = () => {
 
         <StyledContainer>
           <Routes>
-            <Route path="/" element={<Main />} />
+            <Route path="main" element={<Main />} />
             <Route path="about" element={<About />} />
+            <Route path="*" element={<Main/>} />
           </Routes>
         </StyledContainer>
       </Router>
