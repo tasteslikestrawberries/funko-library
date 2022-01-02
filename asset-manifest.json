@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/funko-library/static/css/main.b82db060.css",
+    "main.js": "/funko-library/static/js/main.6ae89be5.js",
+    "static/js/787.3535c564.chunk.js": "/funko-library/static/js/787.3535c564.chunk.js",
+    "static/media/logo.png": "/funko-library/static/media/logo.ff85dde54f7b292013d3.png",
+    "index.html": "/funko-library/index.html",
+    "main.b82db060.css.map": "/funko-library/static/css/main.b82db060.css.map",
+    "main.6ae89be5.js.map": "/funko-library/static/js/main.6ae89be5.js.map",
+    "787.3535c564.chunk.js.map": "/funko-library/static/js/787.3535c564.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b82db060.css",
+    "static/js/main.6ae89be5.js"
+  ]
+}
