@@ -10,6 +10,7 @@ import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 
 //components
 import Main from "./components/Main";
+import TodoList from "./components/TodoList/TodoList";
 import About from "./components/About";
 
 const StyledNav = styled.nav`
@@ -41,7 +42,7 @@ const StyledContainer = styled.div`
 const App = () => {
   const [isSunny, setSunny] = useState(false);
   const handleToggle = () => {
-    setSunny( (isSunny) => !isSunny);
+    setSunny((isSunny) => !isSunny);
   };
 
   return (
@@ -50,6 +51,7 @@ const App = () => {
         <StyledNav>
           <StyledLinks>
             <Link to="/main">Library</Link>
+            <Link to="/todo-list">Todos</Link>
             <Link to="/about">About</Link>
           </StyledLinks>
           <button
@@ -73,6 +75,7 @@ const App = () => {
         <StyledContainer>
           <Routes>
             <Route path="main" element={<Main />} />
+            <Route path="todo-list" element={<TodoList />} />
             <Route path="about" element={<About />} />
             <Route path="*" element={<Main/>} />
           </Routes>

@@ -31,6 +31,15 @@ td {
   text-align: center;
 }
 
+ul{
+  margin:1rem;
+}
+
+button {
+  margin:0 1rem;
+  font-weight:bold;
+}
+
 @media (max-width: 50rem) {
   .funkoImg {
     display: none;

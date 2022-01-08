@@ -48,10 +48,6 @@ const Main: React.FC = () => {
             value={searchData}
             onInput={(e) => setSearchData(e.currentTarget.value)}
           />
-
-          <button className="btn btn-primary" type="button" id="button-addon1">
-            Search
-          </button>
         </div>
       </StyledHeader>
 
