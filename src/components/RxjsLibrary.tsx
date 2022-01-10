@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import logo from "../../src/assets/logo.png";
 import { ajax } from "rxjs/ajax";
-import { map, tap, catchError, delay } from "rxjs/operators";
-import { throwError } from "rxjs";
+import { map, tap, delay } from "rxjs/operators";
+//import { throwError } from "rxjs";
 import { Table } from "react-bootstrap";
 
 interface IFunko {
@@ -24,7 +24,10 @@ const StyledHeader = styled.div`
 const RxjsLibrary: React.FC = () => {
   const [funkoData, setFunkoData] = useState<IFunko[]>([]);
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
+  const [input, setInput] = useState("");
+
+  console.log(input);
 
   useEffect(() => {
     const getData$ = ajax(
@@ -37,16 +40,25 @@ const RxjsLibrary: React.FC = () => {
       .pipe(
         map((data) => data.response),
         delay(500),
-        tap((data) => console.log(data)),
-        catchError((err) => throwError( () => new Error('Well,fudge'))) //must return an Observable (containing error message)
+        /*filter((funko: any) => {
+          if (input === '') return true;
+          if (funko.title.toLowerCase().includes(input)) return true;
+          return false;
+        }),*/
+        tap((data) => console.log(data))
+        //catchError((err) => throwError( () => new Error('Well,fudge'))) //must return an Observable (containing error message)
       )
       .subscribe({
         next: (data: any) => {
           setFunkoData(data);
           setLoading(false);
         },
-
-        error: (err) => {console.warn(err); setLoading(false); setErrorMessage('Sorry, an error occured.')}
+        //this actually handles the error, without it error is uncaught
+        error: (err) => {
+          console.warn(err);
+          setLoading(false);
+          setErrorMessage("Sorry, an error occured.");
+        },
       });
 
     //cleanup func
@@ -55,13 +67,15 @@ const RxjsLibrary: React.FC = () => {
 
   return (
     <>
-    <StyledHeader>
+      <StyledHeader>
         <div className="input-group mb-3">
           <input
             type="text"
             className="form-control"
             placeholder="Search Funkos"
             aria-label="search-button"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
           />
         </div>
       </StyledHeader>
@@ -85,25 +99,26 @@ const RxjsLibrary: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {funkoData ?
+          {funkoData ? (
             funkoData.map((funko, idx) => (
-              <>
-                <tr key={idx}>
-                  <td> {idx + 1} </td>
-                  <td> {funko.id}</td>
-                  <td> {funko.title}</td>
-                  <td> {funko.series}</td>
-                  <td>
-                    {" "}
-                    <img
-                      src={funko.image}
-                      style={{ width: "150px" }}
-                      alt="funkoImg"
-                    />
-                  </td>
-                </tr>
-              </>
-            )) : <span>Sorry, an error occured.</span>}
+              <tr key={idx}>
+                <td> {idx + 1} </td>
+                <td> {funko.id}</td>
+                <td> {funko.title}</td>
+                <td> {funko.series}</td>
+                <td>
+                  {" "}
+                  <img
+                    src={funko.image}
+                    style={{ width: "150px" }}
+                    alt="funkoImg"
+                  />
+                </td>
+              </tr>
+            ))
+          ) : (
+            <span>Sorry, an error occured.</span>
+          )}
         </tbody>
       </Table>
     </>
