@@ -11,8 +11,8 @@ import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 //components
 import Main from "./components/Main";
 import TodoList from "./components/TodoList/TodoList";
-import Api from "./components/Api";
 import About from "./components/About";
+import RxjsLibrary from "./components/RxjsLibrary";
 
 const StyledNav = styled.nav`
   background-color: #fafafa;
@@ -53,7 +53,7 @@ const App = () => {
           <StyledLinks>
             <Link to="/main">Library</Link>
             <Link to="/todo-list">Todos</Link>
-            <Link to="/api">Api</Link>
+            <Link to="/rxjs-lib">Library with RxJS</Link>
             <Link to="/about">About</Link>
           </StyledLinks>
           <button
@@ -78,7 +78,7 @@ const App = () => {
           <Routes>
             <Route path="main" element={<Main />} />
             <Route path="todo-list" element={<TodoList />} />
-            <Route path="api" element={<Api />} />
+            <Route path="rxjs-lib" element={<RxjsLibrary />} />
             <Route path="about" element={<About />} />
             <Route path="*" element={<Main/>} />
           </Routes>
