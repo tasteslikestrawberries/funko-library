@@ -31,31 +31,41 @@ const RxjsLibrary2: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const inputObs = fromEvent(inputRef.current!, "input");
+    //creating obs from input
+    const inputObs$ = fromEvent(inputRef.current!, "input");
 
+    //creating obs from http response
     const getData$ = ajax(
       "https://mocki.io/v1/b8f51406-30a2-4005-bde3-e4936fe65ac9"
     );
+
+    //initial obs returns the whole array on first page load
     const initialObs$ = getData$
       .pipe(map((data) => data.response as IFunko[]))
       .subscribe((data) => setFunkoData(data));
 
-    const inputSub$ = inputObs
+    //subscribing to the input obs
+    const inputSub$ = inputObs$
       .pipe(
         map((e: any) => e.target.value),
-        debounceTime(500),
-        distinctUntilChanged()
+        debounceTime(500), //wait till the user finished typing (avoid making a req on every keypress)
+        distinctUntilChanged() //if a letter is typed=>deleted=>typed again, don't recall the api
       )
       .subscribe((input) => {
         setLoading(true);
+        //inner subscription to the getData$ obs
         getData$
           .pipe(
-            map((data) => data.response as IFunko[]),
+            map((data) => data.response as IFunko[]), //extracting the response
             //delay(500),
             map((data: IFunko[]) => {
               if (input === "") return data;
               return data.filter((element: any) => {
-                return element.title.toLowerCase().includes(input);
+                return (
+                  element.title.toLowerCase().includes(input) ||
+                  element.series.toLowerCase().includes(input) ||
+                  element.id.toLowerCase().includes(input)
+                );
               });
             })
             //tap((data) => console.log(data))
@@ -75,6 +85,7 @@ const RxjsLibrary2: React.FC = () => {
           });
       });
 
+    //cleanup func
     return () => {
       initialObs$.unsubscribe();
       inputSub$.unsubscribe();

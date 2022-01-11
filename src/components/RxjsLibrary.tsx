@@ -42,8 +42,12 @@ const RxjsLibrary: React.FC = () => {
         //delay(500),
         map((data: IFunko[]) => {
           if (input === "") return data;
-          return data.filter((element: any) => {
-            return element.title.toLowerCase().includes(input);
+          return data.filter((element: IFunko) => {
+            return (
+              element.title.toLowerCase().includes(input) ||
+              element.series.toLowerCase().includes(input) ||
+              element.id.toLowerCase().includes(input)
+            );
           });
         })
         //tap((data) => console.log(data))
