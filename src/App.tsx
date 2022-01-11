@@ -53,9 +53,9 @@ const App = () => {
         <StyledNav>
           <StyledLinks>
             <Link to="/main">Library</Link>
-            <Link to="/todo-list">Todos</Link>
             <Link to="/rxjs-lib">Library with RxJS</Link>
             <Link to="/rxjs-lib2">Library with RxJS2</Link>
+            <Link to="/todo-list">Todos</Link>
             <Link to="/about">About</Link>
           </StyledLinks>
           <button
