@@ -1,9 +1,10 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import logo from "../../src/assets/logo.png";
 import { ajax } from "rxjs/ajax";
-import { map } from "rxjs/operators";
+import { map, debounceTime, distinctUntilChanged } from "rxjs/operators";
+import { fromEvent } from "rxjs";
 //import { throwError } from "rxjs";
 import { Table } from "react-bootstrap";
 
@@ -21,50 +22,64 @@ const StyledHeader = styled.div`
   gap: 2rem;
 `;
 
-const RxjsLibrary: React.FC = () => {
+const RxjsLibrary2: React.FC = () => {
   const [funkoData, setFunkoData] = useState<IFunko[]>([]);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [input, setInput] = useState("");
 
-  //console.log(input);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    const inputObs = fromEvent(inputRef.current!, "input");
+
     const getData$ = ajax(
       "https://mocki.io/v1/b8f51406-30a2-4005-bde3-e4936fe65ac9"
     );
+    const initialObs$ = getData$
+      .pipe(map((data) => data.response as IFunko[]))
+      .subscribe((data) => setFunkoData(data));
 
-    setLoading(true);
-
-    const subscription = getData$
+    const inputSub$ = inputObs
       .pipe(
-        map((data) => data.response as IFunko[]),
-        //delay(500),
-        map((data: IFunko[]) => {
-          if (input === "") return data;
-          return data.filter((element: any) => {
-            return element.title.toLowerCase().includes(input);
-          });
-        })
-        //tap((data) => console.log(data))
-        //catchError((err) => throwError( () => new Error('Well,fudge'))) //must return an Observable (containing error message)
+        map((e: any) => e.target.value),
+        debounceTime(500),
+        distinctUntilChanged()
       )
-      .subscribe({
-        next: (data: any) => {
-          setFunkoData(data);
-          setLoading(false);
-        },
-        //this actually handles the error, without it error is uncaught
-        error: (err) => {
-          console.warn(err);
-          setLoading(false);
-          setErrorMessage("Sorry, an error occured.");
-        },
+      .subscribe((input) => {
+        setLoading(true);
+        getData$
+          .pipe(
+            map((data) => data.response as IFunko[]),
+            //delay(500),
+            map((data: IFunko[]) => {
+              if (input === "") return data;
+              return data.filter((element: any) => {
+                return element.title.toLowerCase().includes(input);
+              });
+            })
+            //tap((data) => console.log(data))
+            //catchError((err) => throwError( () => new Error('Well,fudge'))) //must return an Observable (containing error message)
+          )
+          .subscribe({
+            next: (data: any) => {
+              setFunkoData(data);
+              setLoading(false);
+            },
+            //this actually handles the error, without it error is uncaught
+            error: (err) => {
+              console.warn(err);
+              setLoading(false);
+              setErrorMessage("Sorry, an error occured.");
+            },
+          });
       });
 
-    //cleanup func
-    return () => subscription.unsubscribe();
-  }, [input]);
+    return () => {
+      initialObs$.unsubscribe();
+      inputSub$.unsubscribe();
+    };
+  }, []);
 
   return (
     <>
@@ -76,6 +91,7 @@ const RxjsLibrary: React.FC = () => {
             placeholder="Search Funkos"
             aria-label="search-button"
             value={input}
+            ref={inputRef}
             onChange={(e) => setInput(e.target.value)}
           />
         </div>
@@ -126,4 +142,4 @@ const RxjsLibrary: React.FC = () => {
   );
 };
 
-export default RxjsLibrary;
+export default RxjsLibrary2;
