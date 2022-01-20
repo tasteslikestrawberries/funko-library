@@ -134,9 +134,10 @@ const RxjsLibrary2: React.FC = () => {
                 <td className="align-middle"> {funko.id}</td>
                 <td className="align-middle"> {funko.title}</td>
                 <td className="align-middle"> {funko.series}</td>
-                <td className="align-middle">
+                <td className="funkoImg">
                   {" "}
                   <img
+                    className="funkoImg"
                     src={funko.image}
                     style={{ width: "150px" }}
                     alt="funkoImg"
