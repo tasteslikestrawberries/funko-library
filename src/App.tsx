@@ -1,12 +1,7 @@
-import React from "react";
-import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 
 //components
 import Main from "./components/Main";
@@ -14,6 +9,7 @@ import TodoList from "./components/TodoList/TodoList";
 import About from "./components/About";
 import RxjsLibrary from "./components/RxjsLibrary";
 import RxjsLibrary2 from "./components/RxjsLibrary2";
+import ThemeToggler from "./components/ThemeToggler";
 
 const StyledNav = styled.nav`
   background-color: #fafafa;
@@ -42,10 +38,6 @@ const StyledContainer = styled.div`
 `;
 
 const App = () => {
-  const [isSunny, setSunny] = useState(false);
-  const handleToggle = () => {
-    setSunny((isSunny) => !isSunny);
-  };
 
   return (
     <>
@@ -58,22 +50,7 @@ const App = () => {
             <Link to="/todo-list">Todos</Link>
             <Link to="/about">About</Link>
           </StyledLinks>
-          <button
-            style={{ border: "none", backgroundColor: "transparent" }}
-            onClick={() => handleToggle()}
-          >
-            {isSunny ? (
-              <FontAwesomeIcon
-                icon={faSun}
-                style={{ color: "yellow", fontSize: "1.5em" }}
-              />
-            ) : (
-              <FontAwesomeIcon
-                icon={faMoon}
-                style={{ color: "#0d6efd", fontSize: "1.5em" }}
-              />
-            )}
-          </button>
+          <ThemeToggler />
         </StyledNav>
 
         <StyledContainer>

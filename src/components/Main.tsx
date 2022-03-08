@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import useFetchData from "./hooks/useFetchData";
+import useFetchData from "../hooks/useFetchData";
 import styled from "styled-components";
 import logo from "../../src/assets/logo.png";
 import { Table } from "react-bootstrap";
