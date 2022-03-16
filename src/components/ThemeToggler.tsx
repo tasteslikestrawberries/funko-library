@@ -1,20 +1,15 @@
-import { useState } from "react";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
+import { useThemeContext } from "../shared/ThemeContext";
 
 const ThemeToggler = () => {
-    const [isSunny, setSunny] = useState(false);
+  const { isDark, toggleTheme } = useThemeContext();
 
-    const handleToggle = () => {
-        setSunny((isSunny) => !isSunny);
-      };
-
-    return <button
+  return <button
     style={{ border: "none", backgroundColor: "transparent" }}
-    onClick={() => handleToggle()}
+    onClick={() => toggleTheme()}
   >
-    {isSunny ? (
+    {isDark ? (
       <FontAwesomeIcon
         icon={faSun}
         style={{ color: "yellow", fontSize: "1.5em" }}

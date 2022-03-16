@@ -2,10 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { ThemeContext } from "./shared/ThemeContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeContext>
+      <App />
+    </ThemeContext>
   </React.StrictMode>,
   document.getElementById("root")
 );

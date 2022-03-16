@@ -10,9 +10,9 @@ import About from "./components/About";
 import RxjsLibrary from "./components/RxjsLibrary";
 import RxjsLibrary2 from "./components/RxjsLibrary2";
 import ThemeToggler from "./components/ThemeToggler";
+import { ThemeContext, useThemeContext } from "./shared/ThemeContext";
 
 const StyledNav = styled.nav`
-  background-color: #fafafa;
   font-size: large;
   font-weight: bold;
   width: 100%;
@@ -38,9 +38,11 @@ const StyledContainer = styled.div`
 `;
 
 const App = () => {
+  const { getTheme } = useThemeContext()
+  const { color, backgroundColor } = getTheme();
 
   return (
-    <>
+    <div style={{ color, backgroundColor }}>
       <Router>
         <StyledNav>
           <StyledLinks>
@@ -60,11 +62,11 @@ const App = () => {
             <Route path="rxjs-lib" element={<RxjsLibrary />} />
             <Route path="rxjs-lib2" element={<RxjsLibrary2 />} />
             <Route path="about" element={<About />} />
-            <Route path="*" element={<Main/>} />
+            <Route path="*" element={<Main />} />
           </Routes>
         </StyledContainer>
       </Router>
-    </>
+    </div>
   );
 };
 

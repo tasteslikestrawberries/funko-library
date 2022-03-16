@@ -6,7 +6,6 @@
 
 body {
   font-family: "Montserrat", sans-serif;
-  color: #1b1b1b;
 }
 
 a,
@@ -25,10 +24,12 @@ h2 {
 
 table {
   margin-top: 2rem;
+  color: unset !important;    
 }
 
 td {
   text-align: center;
+  color: unset !important; 
 }
 
 ul{
