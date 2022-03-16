@@ -1,4 +1,4 @@
-import { createContext, FC, useContext, useEffect, useLayoutEffect, useState } from "react";
+import { createContext, FC, useContext, useEffect, useState } from "react";
 
 interface IThemeStyles {
     color: string,
