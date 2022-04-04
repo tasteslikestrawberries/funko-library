@@ -9,6 +9,9 @@ import TodoList from "./components/TodoList/TodoList";
 import About from "./components/About";
 import RxjsLibrary from "./components/RxjsLibrary";
 import RxjsLibrary2 from "./components/RxjsLibrary2";
+import Playground from "./components/Playground";
+
+//shared
 import ThemeToggler from "./components/ThemeToggler";
 import { ThemeContext, useThemeContext } from "./shared/ThemeContext";
 
@@ -50,6 +53,7 @@ const App = () => {
             <Link to="/rxjs-lib">Library with RxJS</Link>
             <Link to="/rxjs-lib2">Library with RxJS2</Link>
             <Link to="/todo-list">Todos</Link>
+            <Link to="/playground">Playground</Link>
             <Link to="/about">About</Link>
           </StyledLinks>
           <ThemeToggler />
@@ -62,6 +66,7 @@ const App = () => {
             <Route path="rxjs-lib" element={<RxjsLibrary />} />
             <Route path="rxjs-lib2" element={<RxjsLibrary2 />} />
             <Route path="about" element={<About />} />
+            <Route path="playground" element={<Playground />} />
             <Route path="*" element={<Main />} />
           </Routes>
         </StyledContainer>
