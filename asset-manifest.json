@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/funko-library/static/css/main.8e7a45e3.css",
-    "main.js": "/funko-library/static/js/main.ed28c06a.js",
-    "static/js/787.3535c564.chunk.js": "/funko-library/static/js/787.3535c564.chunk.js",
+    "main.css": "/funko-library/static/css/main.22ec05c9.css",
+    "main.js": "/funko-library/static/js/main.3856cac5.js",
+    "static/js/787.969683cc.chunk.js": "/funko-library/static/js/787.969683cc.chunk.js",
     "static/media/logo.png": "/funko-library/static/media/logo.ff85dde54f7b292013d3.png",
     "index.html": "/funko-library/index.html",
-    "main.8e7a45e3.css.map": "/funko-library/static/css/main.8e7a45e3.css.map",
-    "main.ed28c06a.js.map": "/funko-library/static/js/main.ed28c06a.js.map",
-    "787.3535c564.chunk.js.map": "/funko-library/static/js/787.3535c564.chunk.js.map"
+    "main.22ec05c9.css.map": "/funko-library/static/css/main.22ec05c9.css.map",
+    "main.3856cac5.js.map": "/funko-library/static/js/main.3856cac5.js.map",
+    "787.969683cc.chunk.js.map": "/funko-library/static/js/787.969683cc.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.8e7a45e3.css",
-    "static/js/main.ed28c06a.js"
+    "static/css/main.22ec05c9.css",
+    "static/js/main.3856cac5.js"
   ]
 }
