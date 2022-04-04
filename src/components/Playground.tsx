@@ -1,15 +1,21 @@
 import { useState, useEffect } from "react";
+import { flushSync } from "react-dom";
 
 const Playground: React.FC = () => {
   const [clicked, setClicked] = useState(false);
   const [count, setCount] = useState(0);
   const [quote, setQuote] = useState("");
+  const [test, setTest] = useState(false);
 
   console.log("React 18 render!");
 
   const handleCount = () => {
     setClicked(!clicked);
     setCount(count + 1);
+    //trigger re-render with specific state update (flushSync() method) --doesn't work
+    flushSync(() => {
+      setTest(!test);
+    });
   };
 
   const handleQuote = () => {
