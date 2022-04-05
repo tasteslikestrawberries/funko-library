@@ -10,24 +10,25 @@ const Playground: React.FC = () => {
   console.log("React 18 render!");
 
   const handleCount = () => {
-    setClicked(!clicked);
-    setCount(count + 1);
-    //trigger re-render with specific state update (flushSync() method) --doesn't work
+    flushSync(() => {
+      setClicked(!clicked);
+      setCount(count + 1);
+    });
+    //trigger re-render with specific state update (flushSync())
+    //doesn' work if the upper state updates aren't wrapped in the function too (todo check why)
     flushSync(() => {
       setTest(!test);
     });
   };
 
   const handleQuote = () => {
-    fetch("https://api.kanye.rest/").then((res) =>
-      res
-        .json()
-        .then((res) => setQuote(res.quote))
-        .then(() => {
-          setClicked(!clicked);
-          setCount(count + 1);
-        })
-    );
+    fetch("https://api.kanye.rest/")
+      .then((res) => res.json())
+      .then((res) => {
+        setQuote(res.quote);
+        setClicked(!clicked);
+        setCount(count + 1);
+      });
   };
 
   const handleTimeout = () => {
