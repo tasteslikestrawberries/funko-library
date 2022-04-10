@@ -5,7 +5,7 @@ import "./App.css";
 
 //components
 import Main from "./components/Main";
-import TodoList from "./components/TodoList/TodoList";
+import MailingList from "./components/MailingList/MailingList";
 import About from "./components/About";
 import RxjsLibrary from "./components/RxjsLibrary";
 import RxjsLibrary2 from "./components/RxjsLibrary2";
@@ -52,7 +52,7 @@ const App = () => {
             <Link to="/main">Library</Link>
             <Link to="/rxjs-lib">Library with RxJS</Link>
             <Link to="/rxjs-lib2">Library with RxJS2</Link>
-            <Link to="/todo-list">Todos</Link>
+            <Link to="/mailing-list">Mailing List</Link>
             <Link to="/playground">Playground</Link>
             <Link to="/about">About</Link>
           </StyledLinks>
@@ -62,7 +62,7 @@ const App = () => {
         <StyledContainer>
           <Routes>
             <Route path="main" element={<Main />} />
-            <Route path="todo-list" element={<TodoList />} />
+            <Route path="mailing-list" element={<MailingList />} />
             <Route path="rxjs-lib" element={<RxjsLibrary />} />
             <Route path="rxjs-lib2" element={<RxjsLibrary2 />} />
             <Route path="about" element={<About />} />
