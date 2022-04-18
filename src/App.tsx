@@ -9,11 +9,12 @@ import MailingList from "./components/MailingList/MailingList";
 import About from "./components/About";
 import RxjsLibrary from "./components/RxjsLibrary";
 import RxjsLibrary2 from "./components/RxjsLibrary2";
-import Playground from "./components/Playground";
+import Rendering from "./components/Rendering";
 
 //shared
 import ThemeToggler from "./components/ThemeToggler";
 import { ThemeContext, useThemeContext } from "./shared/ThemeContext";
+import Concurrency from "./components/Concurrency";
 
 const StyledNav = styled.nav`
   font-size: large;
@@ -53,7 +54,8 @@ const App = () => {
             <Link to="/rxjs-lib">Library with RxJS</Link>
             <Link to="/rxjs-lib2">Library with RxJS2</Link>
             <Link to="/mailing-list">Mailing List</Link>
-            <Link to="/playground">Playground</Link>
+            <Link to="/rendering">React 18 Rendering</Link>
+            <Link to="/concurrency">Concurrency</Link>
             <Link to="/about">About</Link>
           </StyledLinks>
           <ThemeToggler />
@@ -66,7 +68,8 @@ const App = () => {
             <Route path="rxjs-lib" element={<RxjsLibrary />} />
             <Route path="rxjs-lib2" element={<RxjsLibrary2 />} />
             <Route path="about" element={<About />} />
-            <Route path="playground" element={<Playground />} />
+            <Route path="rendering" element={<Rendering />} />
+            <Route path="concurrency" element={<Concurrency />} />
             <Route path="*" element={<Main />} />
           </Routes>
         </StyledContainer>

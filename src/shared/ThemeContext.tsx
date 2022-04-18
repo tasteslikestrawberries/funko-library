@@ -41,7 +41,7 @@ const useIsDark = () => {
     return { isDark, setIsDark };
 }
 
-export const ThemeContext: FC = ({ children }) => {
+export const ThemeContext: FC<any> = ({ children }) => {
     const { isDark, setIsDark } = useIsDark();
 
     const toggleTheme = () => {

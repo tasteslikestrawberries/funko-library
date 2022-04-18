@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { flushSync } from "react-dom";
 
-const Playground: React.FC = () => {
+const Rendering: React.FC = () => {
   const [clicked, setClicked] = useState(false);
   const [count, setCount] = useState(0);
   const [quote, setQuote] = useState("");
@@ -50,4 +50,4 @@ const Playground: React.FC = () => {
   );
 };
 
-export default Playground;
+export default Rendering;
