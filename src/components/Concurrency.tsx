@@ -1,12 +1,35 @@
-import { useEffect, useState, startTransition, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
+import styled from "styled-components";
 import Spinner from "./Spinner";
+import { mockData } from "../assets/mockdata";
+
+const StyledMainFlexContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const StyledFlexContainer = styled.div`
+  display: flex;
+  padding: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 50vw;
+  height: 50vh;
+  overflow: hidden;
+  border: 1px solid #000;
+`;
+
+const StyledNonUrgent = styled.span`
+  color: #fd0dad;
+  margin: 1rem;
+  padding: 0.5rem;
+`;
 
 export default function Concurrency() {
   const [data, setData] = useState<string[]>([]);
   const [input, setInput] = useState<string>("");
   const [isPending, startTransition] = useTransition();
-
-  const mockData = ["Mouse", "Chicken", "Bird", "Dog", "Fox"];
 
   useEffect(() => {
     stall();
@@ -15,10 +38,8 @@ export default function Concurrency() {
   const stall = () => {
     // Mark any state updates inside as transitions
     startTransition(() => {
-      setTimeout(() => {
-        // Transition: Show the results
-        setData(mockData);
-      }, 5000);
+      // Transition: Show the results
+      setData(mockData);
     });
   };
 
@@ -27,28 +48,24 @@ export default function Concurrency() {
   };
   return (
     <>
-      <h2>Concurrency</h2>
-      <h3>1. startTransition API</h3>
-      <div
-        className="d-flex align-items-center"
-        style={{ justifyContent: "center", gap: "3rem" }}
-      >
-        <div>
-          <h4>Non-urgent (wrapped in startTransition):</h4>
-          <ul>
-            {isPending && <Spinner />}
-            {data.map((e) => (
-              <li key={e}>{e}</li>
-            ))}
-          </ul>
-        </div>
-
+      <h2>Concurrency Test (useTransition hook)</h2>
+      <StyledMainFlexContainer>
         <div>
           <h4>Urgent state change</h4>
           <input type="text" onInput={handleInput}></input>
           <p>Input: {input}</p>
         </div>
-      </div>
+
+        <div>
+          <h4>Non-urgent (wrapped in startTransition):</h4>
+          <StyledFlexContainer>
+            {isPending && <Spinner />}
+            {data.map((e) => (
+              <StyledNonUrgent>{e}</StyledNonUrgent>
+            ))}
+          </StyledFlexContainer>
+        </div>
+      </StyledMainFlexContainer>
     </>
   );
 }

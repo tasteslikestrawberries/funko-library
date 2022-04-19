@@ -1,5 +1,7 @@
 export default function Spinner() {
   return (
-    <div>Loading...</div>
-  )
+    <div className="lds-heart">
+      <div></div>
+    </div>
+  );
 }
