@@ -15,6 +15,7 @@ import Rendering from "./components/Rendering";
 import ThemeToggler from "./components/ThemeToggler";
 import { ThemeContext, useThemeContext } from "./shared/ThemeContext";
 import Concurrency from "./components/Concurrency";
+import TestPlayground from "./TestPlayground";
 
 const StyledNav = styled.nav`
   font-size: large;
@@ -56,6 +57,7 @@ const App = () => {
             <Link to="/mailing-list">Mailing List</Link>
             <Link to="/rendering">React 18 Rendering</Link>
             <Link to="/concurrency">Concurrency</Link>
+            <Link to="/test-playground">Playground</Link>
             <Link to="/about">About</Link>
           </StyledLinks>
           <ThemeToggler />
@@ -70,6 +72,7 @@ const App = () => {
             <Route path="about" element={<About />} />
             <Route path="rendering" element={<Rendering />} />
             <Route path="concurrency" element={<Concurrency />} />
+            <Route path="test-playground" element={<TestPlayground />} />
             <Route path="*" element={<Main />} />
           </Routes>
         </StyledContainer>
