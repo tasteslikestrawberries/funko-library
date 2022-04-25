@@ -2,6 +2,8 @@ import { useEffect, useState, useTransition } from "react";
 import styled from "styled-components";
 import Spinner from "./Spinner";
 import { mockData } from "../assets/mockdata";
+import { ajax } from "rxjs/ajax";
+import { concatMap, delay, of } from "rxjs";
 
 const StyledMainFlexContainer = styled.div`
   display: flex;
@@ -32,16 +34,21 @@ export default function Concurrency() {
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
-    stall();
-  }, []);
-
-  const stall = () => {
     // Mark any state updates inside as transitions
     startTransition(() => {
-      // Transition: Show the results
-      setData(mockData);
+      const obs$ = of(mockData);
+      const subscription = obs$
+        .pipe(
+          concatMap(async () => {
+            //heavy data req
+           await ajax(
+              "https://jsonplaceholder.typicode.com/photos"
+            ).subscribe(heavyData => console.log(heavyData));
+          })
+        )
+        .subscribe(() => setData(mockData));
     });
-  };
+  }, []);
 
   const handleInput = (event: any) => {
     setInput(event?.target.value);
